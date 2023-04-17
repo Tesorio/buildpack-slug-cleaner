@@ -6,6 +6,7 @@ indent() {
 
 shopt -s globstar
 
+ENV_DIR=$3
 if [ -f "$ENV_DIR/DISABLE_SLUG_IGNORE_FILE" ]; then
   DISABLE_SLUG_IGNORE_FILE=$(cat "$ENV_DIR/DISABLE_SLUG_IGNORE_FILE")
 fi
