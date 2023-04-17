@@ -7,7 +7,9 @@ indent() {
 shopt -s globstar
 
 cd $1
-if [ "${DISABLE_SLUG_IGNORE_FILE:-0}" -ne 1 ] && [[ -f ".slugignore" ]]; then
+echo "DISABLE_SLUG_IGNORE_FILE=$DISABLE_SLUG_IGNORE_FILE"
+echo "SLUG_IGNORE_FILES=$SLUG_IGNORE_FILES"
+if [[ "${DISABLE_SLUG_IGNORE_FILE:-0}" != "1" ]] && [[ -f ".slugignore" ]]; then
     while read line; do
         [[ ! "$line" =~ ^!.*$ ]] && continue # we only look for lines starting with !
         line=${line:1}
@@ -23,7 +25,7 @@ if [ "${DISABLE_SLUG_IGNORE_FILE:-0}" -ne 1 ] && [[ -f ".slugignore" ]]; then
 fi
 
 if [[ "${SLUG_IGNORE_FILES:-}" != "" ]]; then
-    while IFS="," read -r line; do
+    while IFS= read -r line; do
         echo "Deleting '$line'"
 
         ls -1d **$line 2>/dev/null |
